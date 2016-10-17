@@ -10,10 +10,9 @@ function HackerServiceFactory ($http) {
       return $http.get('/api/hackers')
     },
 
-    // these will work when more API routes are defined on the Node side of things
     // call to POST and create a new hacker
-    create: function (hackerData) {
-      return $http.post('/api/hackers', hackerData)
+    create: function (data) {
+      return $http.post('/api/hackers', data)
     },
 
     // call to DELETE a hacker

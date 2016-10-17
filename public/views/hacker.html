@@ -3,10 +3,11 @@
 
   <p>{{ hacker.tagline }}</p>
 </div>
-<ul>
-  <li ng-repeat="hacker in hacker.hackers">{{hacker.name}}
-  </li>
-</ul>
+<div class="checkbox" ng-repeat="person in hacker.hackers">
+  <label>
+    <input type="checkbox" ng-click="hacker.remove(person._id)"> {{person.name}}
+  </label>
+</div>
 <form class="form-inline">
   <div class="form-group">
     <label for="Name">Name</label>

@@ -3,31 +3,34 @@ angular.module('HackerCtrl', [])
 
 HackerController.$inject = ['Hacker']
 
-function HackerController (Hacker) {
+function HackerController(Hacker) {
   'use strict'
   var vm = this
-  vm.tagline = 'Nothing beats a pocket protector!'
+  vm.tagline = 'Mess with the best, die like the rest.'
   vm.formData = {}
-  vm.create = create
+  vm.create = _create
+  vm.remove = _remove
 
   Hacker.get()
-    .success(function(data) {
-      vm.hackers = data
-      console.log(data)
-    })
-    .error(function(data) {
-      console.log('Error: ' + data)
-    })
+    .then(_onSuccess, _onError)
 
-  function create () {
+  function _create() {
     Hacker.create(vm.formData)
-      .success(function (data) {
-        vm.formData = null
-        vm.hackers = data
-        console.log(data)
-      })
-      .error(function (data) {
-        console.log('Error: ' + data)
-      })
+      .then(_onSuccess, _onError)
+  }
+
+  function _remove(id) {
+    Hacker.delete(id)
+      .then(_onSuccess, _onError)
+  }
+
+  function _onSuccess(data) {
+    vm.formData = null
+    vm.hackers = data
+    console.log(data)
+  }
+
+  function _onError(data) {
+    console.log('Error: ' + data)
   }
 }
