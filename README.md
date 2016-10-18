@@ -1,2 +1,2 @@
 # node-angular-starter
-based on scotch.io starter template tutorial
+This is the starter template for all Sabio cohort projects.
