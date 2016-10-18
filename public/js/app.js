@@ -1,0 +1,1 @@
+angular.module('SabioApp', ['ngRoute', 'appRoutes', 'MainCtrl', 'HackerCtrl', 'HackerService']);
