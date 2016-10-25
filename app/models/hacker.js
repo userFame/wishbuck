@@ -1,11 +1,14 @@
 // grab the mongoose module
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-// define our hacker model and validation requirements
-// module.exports allows us to pass this to other files when it is called
-module.exports = mongoose.model('Hacker', {
+const hackerSchema = new Schema({
   name: {
     type: String,
     required: true
   }
 })
+
+// define our hacker model
+// module.exports allows us to pass this to other files when it is called
+module.exports = mongoose.model('Hacker', hackerSchema)

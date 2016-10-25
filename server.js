@@ -8,10 +8,10 @@ const mongoose = require('mongoose')
 // configuration ===========================================
 
 // config files
-var db = require('./config/db')
+const db = require('./config/db')
 
 // set our port
-var port = process.env.PORT || 8080
+const port = process.env.PORT || 8080
 
 // connect to mongoDB database 
 // (uncomment after you enter in your own credentials in config/db.js)
@@ -34,15 +34,13 @@ app.use(methodOverride('X-HTTP-Method-Override'))
 app.use(express.static(__dirname + '/public'))
 
 // routes ==================================================
-var routes = require('./app/routes') // configure our routes
-app.use('/', routes)
+app.use('/' , require('./app/routes'))// configure our routes
+
 
 // start app ===============================================
-// startup our app at http://localhost:8080
-app.listen(port)
-
-// shoutout to the user                     
-console.log('Magic happens on port ' + port)
+app.listen(port, () => {
+    console.log(`Magic happens on port: ${port}`)
+})
 
 // expose app           
 exports = module.exports = app
