@@ -1,8 +1,14 @@
 // grab the mongoose module
-var mongoose = require('mongoose')
+const mongoose = require('mongoose')
+const Schema = mongoose.Schema
 
-// define our nerd model
-// module.exports allows us to pass this to other files when it is called
-module.exports = mongoose.model('Hacker', {
-  name: {type: String, default: ''}
+const hackerSchema = new Schema({
+  name: {
+    type: String, 
+    default: ''
+  }
 })
+
+// define our hacker model
+// module.exports allows us to pass this to other files when it is called
+module.exports = mongoose.model('Hacker', hackerSchema)

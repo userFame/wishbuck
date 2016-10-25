@@ -6,19 +6,23 @@ HackerServiceFactory.$inject = ['$http']
 function HackerServiceFactory ($http) {
   return {
     // call to get all hackers
-    get: function () {
+    getAll: () => {
       return $http.get('/api/hackers')
+    },
+
+    get: (name) => {
+      return $http.get(`/api/hackers/${name}`)
     },
 
     // these will work when more API routes are defined on the Node side of things
     // call to POST and create a new hacker
-    create: function (hackerData) {
+    post: (hackerData) => {
       return $http.post('/api/hackers', hackerData)
     },
 
     // call to DELETE a hacker
-    delete: function (id) {
-      return $http.delete('/api/hackers/' + id)
+    delete: (name) => {
+      return $http.delete(`/api/hackers/${name}`)
     }
   }
 }
