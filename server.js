@@ -13,7 +13,7 @@ const db = require('./config/db')
 // set our port
 const port = process.env.PORT || 8080
 
-// connect to our mongoDB database 
+// connect to mongoDB database 
 // (uncomment after you enter in your own credentials in config/db.js)
 mongoose.connect(db.url);
 
@@ -35,6 +35,7 @@ app.use(express.static(__dirname + '/public'))
 
 // routes ==================================================
 app.use('/' , require('./app/routes'))// configure our routes
+
 
 // start app ===============================================
 app.listen(port, () => {

@@ -4,5 +4,5 @@ angular.module('MainCtrl', [])
 function MainController () {
   'use strict'
   var vm = this
-  vm.tagline = 'To the moon and back!'
+  vm.tagline = 'Hack the Planet!'
 }
