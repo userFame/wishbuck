@@ -8,14 +8,14 @@ function HackerController(Hacker) {
   var vm = this
   vm.tagline = 'Hack The Planet!'
   vm.formData = {}
-  vm.save = saveHacker
+  vm.insert = insertHacker
+  vm.update = updateHacker
   vm.get = getHacker
   vm.remove = removeHacker
 
   Hacker.getAll()
     .success((data) => {
       vm.hackers = data
-      console.log(data)
     })
     .error((data) => {
       console.log(`Error: ${data}`)
@@ -32,13 +32,28 @@ function HackerController(Hacker) {
       })
   }
 
-  function saveHacker() {
+  function insertHacker() {
+    console.log(vm.formData)
     Hacker.post(vm.formData)
       .success((data) => {
         vm.formData = null
         console.log(data)
         if (data)
           vm.hackers.push(data)
+      })
+      .error((data) => {
+        console.log(data)
+      })
+  }
+
+  function updateHacker() {
+    console.log(vm.formData)
+    Hacker.put(vm.formData)
+      .success((data) => {
+        vm.formData = null
+        console.log(data)
+        // if (data)
+        //   vm.hackers.push(data)
       })
       .error((data) => {
         console.log(data)

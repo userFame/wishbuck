@@ -13,7 +13,8 @@ function hackerController(options) {
     return {
         getAll: getAll,
         getOne: getOne,
-        save: save,
+        insert: insert,
+        update: update,
         remove: remove
     }
 
@@ -45,9 +46,20 @@ function hackerController(options) {
         }
     }
 
-    function save(req, res) {
-        let query = { name: req.params.name }
-        Hacker.findOneAndUpdate(query, req.body, {upsert: true}, complete)
+    function insert(req, res) {
+        let hackerDoc = new Hacker(req.body)
+        hackerDoc.save(complete)
+
+        function complete(err, hacker) {
+            if (err)
+                res.status('500').send(err)
+            // return responseModel
+            res.json(hacker)
+        }
+    }
+
+    function update(req, res) {
+        Hacker.update({'_id': req.body._id}, req.body, complete)
 
         function complete(err, hacker) {
             if (err)

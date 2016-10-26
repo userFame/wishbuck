@@ -5,9 +5,9 @@ const defaultDependencies = [
     'HackerCtrl',
     'HackerService',
     'HackerSingleCtrl',
-    'MainCtrl',
+    'MainCtrl'
 ]
 
-const arrOfDep = defaultDependencies.concat(thirdPartyDependencies)
+const arrOfDep = thirdPartyDependencies.concat(defaultDependencies)
 
 angular.module('SabioApp', arrOfDep)

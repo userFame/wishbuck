@@ -20,6 +20,10 @@ function HackerServiceFactory ($http) {
       return $http.post('/api/hackers', hackerData)
     },
 
+    put: (hackerData) => {
+      return $http.put(`/api/hackers/${hackerData._id}`, hackerData)
+    },
+
     // call to DELETE a hacker
     delete: (name) => {
       return $http.delete(`/api/hackers/${name}`)
