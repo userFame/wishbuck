@@ -1,32 +1,49 @@
-angular.module('HackerService', [])
-  .factory('Hacker', HackerServiceFactory)
+angular.module('sabio.hacker.service', [])
+  .factory('hackerService', HackerServiceFactory)
 
 HackerServiceFactory.$inject = ['$http']
 
-function HackerServiceFactory ($http) {
+function HackerServiceFactory($http) {
   return {
-    // call to get all hackers
-    getAll: () => {
-      return $http.get('/api/hackers')
+
+    getAll: (onSuccess, onError) => {
+      return $http.get('/api/hackers').then((response) => {
+        onSuccess(response.data)
+      }, (response) => {
+        onError(response.data)
+      })
     },
 
-    get: (name) => {
-      return $http.get(`/api/hackers/${name}`)
+    get: (id, onSuccess, onError) => {
+      return $http.get(`/api/hackers/${id}`).then((response) => {
+        onSuccess(response.data)
+      }, (response) => {
+        onError(response.data)
+      })
     },
 
-    // these will work when more API routes are defined on the Node side of things
-    // call to POST and create a new hacker
-    post: (hackerData) => {
-      return $http.post('/api/hackers', hackerData)
+    post: (hackerData, onSuccess, onError) => {
+      return $http.post('/api/hackers', hackerData).then((response) => {
+        onSuccess(response.data)
+      }, (response) => {
+        onError(response.data)
+      })
     },
 
-    put: (hackerData) => {
-      return $http.put(`/api/hackers/${hackerData._id}`, hackerData)
+    put: (hackerData, onSuccess, onError) => {
+      return $http.put(`/api/hackers/${hackerData._id}`, hackerData).then((response) => {
+        onSuccess(response.data)
+      }, (response) => {
+        onError(response.data)
+      })
     },
 
-    // call to DELETE a hacker
-    delete: (name) => {
-      return $http.delete(`/api/hackers/${name}`)
+    delete: (id, onSuccess, onError) => {
+      return $http.delete(`/api/hackers/${id}`).then((response) => {
+        onSuccess(response.data)
+      }, (response) => {
+        onError(response.data)
+      })
     }
   }
 }

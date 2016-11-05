@@ -1,8 +1,6 @@
-// grab the mongoose module
 const mongoose = require('mongoose')
-const Schema = mongoose.Schema
 
-const hackerSchema = new Schema({
+const hackerSchema = mongoose.Schema({
   name: {
     type: String,
     required: true

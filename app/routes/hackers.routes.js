@@ -2,12 +2,11 @@ const router = require('express').Router()
 const hacker = require('../models/hacker')
 const hackerController = require('../controllers/hacker.controller')({ modelService: hacker })
 
+module.exports = router
+
 // api routes ===========================================================
 router.get('/', hackerController.getAll)
-router.get('/:name', hackerController.getOne)
+router.get('/:id', hackerController.getOne)
 router.post('/', hackerController.insert)
 router.put('/:id', hackerController.update)
-router.delete('/:name', hackerController.remove)
-
-
-module.exports = router
+router.delete('/:id', hackerController.remove)

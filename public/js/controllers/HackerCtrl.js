@@ -1,77 +1,65 @@
-angular.module('HackerCtrl', [])
-  .controller('HackerController', HackerController)
+angular.module('sabio.hacker.controller', ['sabio.hacker.service'])
+  .controller('hackerController', HackerController)
 
-HackerController.$inject = ['Hacker']
+HackerController.$inject = ['hackerService', '$stateParams']
 
-function HackerController(Hacker) {
+function HackerController(hackerService, $stateParams) {
   'use strict'
   var vm = this
   vm.tagline = 'Hack The Planet!'
   vm.formData = {}
-  vm.insert = insertHacker
-  vm.update = updateHacker
-  vm.get = getHacker
-  vm.remove = removeHacker
 
-  Hacker.getAll()
-    .success((data) => {
-      vm.hackers = data
+  if ($stateParams.id) {
+    hackerService.get($stateParams.id, onGetSuccess)
+  }
+  else {
+    hackerService.getAll(getAllSuccess, onError)
+  }
+
+  vm.insert = () => {
+    hackerService.post(vm.formData, onInsertSuccess, onError)
+  }
+  vm.update = () => {
+    hackerService.put(vm.formData, onUpdateSuccess, onError)
+  }
+  vm.get = (id) => {
+    hackerService.get(id, onGetSuccess, onError)
+  }
+  vm.remove = (id) => {
+    hackerService.delete(id, onDeleteSuccess, onError)
+  }
+
+
+  function onInsertSuccess(data) {
+    vm.formData = null
+    if (data.item)
+      vm.hackers.push(data.item)
+  }
+
+  function getAllSuccess(data) {
+    vm.hackers = data.items
+  }
+
+  function onGetSuccess(data) {
+    vm.hacker = data.item
+  }
+
+  function onUpdateSuccess(data) {
+    vm.formData = null
+    if (data)
+      vm.hackers.push(data)
+  }
+
+  function onDeleteSuccess(data) {
+    vm.formData = null
+    let removeIndex = vm.hackers.findIndex((element, index, hackers) => {
+      return element._id === data._id
     })
-    .error((data) => {
-      console.log(`Error: ${data}`)
-    })
-
-  function getHacker(name) {
-    Hacker.get(name)
-      .success((data) => {
-        vm.hacker = data
-        console.log(data)
-      })
-      .error((data) => {
-        console.log(`Error: ${data}`)
-      })
+    vm.hackers.splice(removeIndex, 1)
   }
 
-  function insertHacker() {
-    console.log(vm.formData)
-    Hacker.post(vm.formData)
-      .success((data) => {
-        vm.formData = null
-        console.log(data)
-        if (data)
-          vm.hackers.push(data)
-      })
-      .error((data) => {
-        console.log(data)
-      })
+  function onError(data) {
+    console.log(`Error: ${data.errors}`)
   }
 
-  function updateHacker() {
-    console.log(vm.formData)
-    Hacker.put(vm.formData)
-      .success((data) => {
-        vm.formData = null
-        console.log(data)
-        // if (data)
-        //   vm.hackers.push(data)
-      })
-      .error((data) => {
-        console.log(data)
-      })
-  }
-
-  function removeHacker(name) {
-    Hacker.delete(name)
-      .success((data) => {
-        vm.formData = null
-        let removeIndex = vm.hackers.findIndex((element, index, hackers) => {
-          return element.name === data.name
-        })
-        vm.hackers.splice(removeIndex, 1)
-        console.log(data)
-      })
-      .error((data) => {
-        console.log('Error: ' + data)
-      })
-  }
 }

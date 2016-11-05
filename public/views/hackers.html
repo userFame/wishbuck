@@ -39,9 +39,9 @@
 			<tr ng-repeat="hackerSingle in hacker.hackers">
 				<td>{{hackerSingle.name}}</td>
 				<td>
-					<button type="button" ui-sref="hackerSingle({name: hackerSingle.name})" class="btn btn-primary">View</button>
+					<button type="button" ui-sref="hackerSingle({id: hackerSingle._id})" class="btn btn-primary">View</button>
 					<button type="button" id="edit" ng-click="hacker.formData = hackerSingle" class="btn btn-primary">Edit</button>
-					<button type="button" ng-click="hacker.remove(hackerSingle.name)" class="btn btn-danger">Delete</button>
+					<button type="button" ng-click="hacker.remove(hackerSingle._id)" class="btn btn-danger">Delete</button>
 				</td>
 			</tr>
 		</tbody>

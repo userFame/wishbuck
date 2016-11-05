@@ -1,3 +1,5 @@
+const responses = require('../models/responses')
+
 module.exports = hackerController
 
 function hackerController(options) {
@@ -26,23 +28,27 @@ function hackerController(options) {
             // if there is an error retrieving, send the error. 
             // nothing after res.send(err) will execute
             if (err)
-                res.send(err)
+                return res.status(500).send(new responses.ErrorResponse(err))
 
-            res.json(hackers)
+            const responseModel = new responses.ItemsResponse()
+            responseModel.items = hackers
+            res.json(responseModel)
         }
     }
 
     function getOne(req, res) {
-        let query = { name: req.params.name }
+        let query = { _id: req.params.id }
         Hacker.findOne(query, complete)
 
         function complete(err, hacker) {
             // if there is an error retrieving, send the error. 
             // nothing after res.send(err) will execute
             if (err)
-                res.send(err)
+                return res.status(500).send(new responses.ErrorResponse(err))
 
-            res.json(hacker)
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = hacker
+            res.json(responseModel)
         }
     }
 
@@ -52,35 +58,48 @@ function hackerController(options) {
 
         function complete(err, hacker) {
             if (err)
-                res.status('500').send(err)
-            // return responseModel
-            res.json(hacker)
+                return res.status(500).send(new responses.ErrorResponse(err))
+
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = hacker
+            res.status(201).location(`/api/blogs/${hacker._id}`).json(responseModel)
         }
     }
 
     function update(req, res) {
-        Hacker.update({'_id': req.body._id}, req.body, complete)
+        Hacker.update({ '_id': req.body._id }, req.body, complete)
 
         function complete(err, hacker) {
             if (err)
-                res.status('500').send(err)
-            // return responseModel
-            res.json(hacker)
+                return res.status(500).send(new responses.ErrorResponse(err))
+
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = hacker
+            res.status(204).json(responseModel)
         }
     }
 
     function remove(req, res) {
-        let query = { name: req.params.name }
+        let query = { _id: req.params.id }
         Hacker.findOne(query, complete)
 
         function complete(err, hacker) {
+            console.log(err)
             if (err)
-                res.send(err)
+                return res.status(500).send(new responses.ErrorResponse(err))
+            
+            console.log(hacker)
+            if(!hacker)
+                return res.status(404).send({message: 'Resource Not Found'})
+
             hacker.remove(removeComplete)
 
             function removeComplete(err, hacker) {
                 if (err)
                     res.send(err)
+
+                const responseModel = new responses.ItemResponse()
+                responseModel.item = hacker
                 res.json(hacker)
             }
         }
