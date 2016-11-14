@@ -11,8 +11,6 @@ function AuthenticationController(authenticationService, $controller) {
 
   vm.user = {}
 
-  authenticationService.checkBaseMethod()
-
   vm.register = () => {
     authenticationService.register(vm.user, onSuccess, onError)
   }

@@ -56,8 +56,8 @@ function passportConfig(passport) {
 
                 // check to see if theres already a user with that email
                 if (user) {
-                    const userCreated = false
                     const errorsFound = null
+                    const userCreated = false                   
                     return done(errorsFound, userCreated, {
                         reason: "User already exists with that email."
                     })

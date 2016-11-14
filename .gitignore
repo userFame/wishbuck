@@ -40,6 +40,9 @@ jspm_packages
 # Bower
 public/libs
 
+# Environment
+.env
+
 # VSCode
 .vscode/*
 !.vscode/settings.json
