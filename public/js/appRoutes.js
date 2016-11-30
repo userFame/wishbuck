@@ -21,12 +21,12 @@ function RouteConfig($stateProvider, $urlRouterProvider, $locationProvider) {
       controller: 'hackerController as hacker'
     })
     .state('register', {
-      url:'/register',
+      url: '/register',
       templateUrl: 'views/register.html',
       controller: 'authenticationController as login'
     })
     .state('login', {
-      url:'/login',
+      url: '/login',
       templateUrl: 'views/login.html',
       controller: 'authenticationController as login'
     })

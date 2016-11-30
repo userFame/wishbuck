@@ -8,6 +8,7 @@ function HackerController(hackerService, $stateParams) {
   var vm = this
   vm.tagline = 'Hack The Planet!'
   vm.formData = {}
+  vm.hackers = []
 
   if ($stateParams.id) {
     hackerService.get($stateParams.id, onGetSuccess)
