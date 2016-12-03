@@ -36,7 +36,7 @@ app.use(methodOverride('X-HTTP-Method-Override'))
 
 // passport config
 app.use(session({
-    secret: process.env.PASSPORT_SESSION_SECRET, // session secret
+    secret: process.env.PASSPORT_SESSION_SECRET || "abc1234", // session secret
     resave: true,
     saveUninitialized: true
 }));
