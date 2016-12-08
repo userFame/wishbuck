@@ -1,6 +1,6 @@
 const APPNAME = 'SabioApp'; //  so it's easy to change later
 
-const thirdPartyDependencies = ['ui.router', 'ui.bootstrap']
+const thirdPartyDependencies = ['ui.router', 'ui.bootstrap','toastr']
 
 const defaultDependencies = [
     'sabio.appRoutes',

@@ -1,12 +1,13 @@
 angular.module('sabio.hacker.controller', ['sabio.hacker.service'])
   .controller('hackerController', HackerController)
 
-HackerController.$inject = ['hackerService', '$stateParams']
+HackerController.$inject = ['hackerService', '$stateParams','$alertService']
 
-function HackerController(hackerService, $stateParams) {
+function HackerController(hackerService, $stateParams, $alertService) { 
   'use strict'
   var vm = this
   vm.tagline = 'Hack The Planet!'
+  vm.$alertService = $alertService;
   vm.formData = {}
   vm.hackers = []
 
@@ -35,6 +36,8 @@ function HackerController(hackerService, $stateParams) {
     vm.formData = null
     if (data.item)
       vm.hackers.push(data.item)
+
+      vm.$alertService.success(data.item.name + " has been inserted");
   }
 
   function getAllSuccess(data) {
@@ -60,7 +63,14 @@ function HackerController(hackerService, $stateParams) {
   }
 
   function onError(data) {
-    console.log(`Error: ${data.errors}`)
+    var msg = "An error occured";
+
+    if(data.errors && data.errors.errmsg)
+      msg += ": " + data.errors.errmsg;
+
+      vm.$alertService.error(msg, "Hacker error");
+
+    console.log('Error:',data.errors);
   }
 
 }
