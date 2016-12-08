@@ -58,11 +58,11 @@ function hackerController(options) {
 
         function complete(err, hacker) {
             if (err)
-               return res.status(500).send(new responses.ErrorResponse(err))
+                res.status(500).send(new responses.ErrorResponse(err))
 
             const responseModel = new responses.ItemResponse()
             responseModel.item = hacker
-            return res.status(201).location(`/api/blogs/${hacker._id}`).json(responseModel)
+            res.status(201).location(`/api/blogs/${hacker._id}`).json(responseModel)
         }
     }
 

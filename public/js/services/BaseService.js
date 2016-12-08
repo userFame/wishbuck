@@ -1,18 +1,12 @@
-(function () {
-  "use strict";
+angular.module('sabio.base.service', [])
+  .factory('baseService', BaseServiceFactory)
 
-  angular.module('sabio.base.service', [])
-    .factory('baseService', BaseServiceFactory)
+BaseServiceFactory.$inject = ['$http']
 
-  BaseServiceFactory.$inject = ['$http']
-
-  function BaseServiceFactory($http) {
-    return {
-      $http: $http
-      , checkBaseMethod: () => {
+function BaseServiceFactory($http) {
+  return {
+    checkBaseMethod: () => {
         console.log("this is from the baseService")
-      }
     }
   }
-
-})();
+}

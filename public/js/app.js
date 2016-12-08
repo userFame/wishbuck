@@ -1,6 +1,4 @@
-const APPNAME = 'SabioApp'; //  so it's easy to change later
-
-const thirdPartyDependencies = ['ui.router', 'ui.bootstrap','toastr','xeditable']
+const thirdPartyDependencies = ['ui.router', 'ui.bootstrap']
 
 const defaultDependencies = [
     'sabio.appRoutes',
@@ -12,7 +10,7 @@ const defaultDependencies = [
 
 const arrOfDep = thirdPartyDependencies.concat(defaultDependencies)
 
-angular.module(APPNAME, arrOfDep)
+angular.module('SabioApp', arrOfDep)
 
 angular.module('sabio.base', ['sabio.base.controller', 'sabio.base.service'])
 
