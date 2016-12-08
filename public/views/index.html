@@ -21,7 +21,7 @@
 					<a class="navbar-brand" ui-sref="main">Node Kitchen Sink</a>
 				</div>
 				<!-- LINK TO OUR PAGES. ANGULAR HANDLES THE ROUTING HERE -->
-				<ul class="nav navbar-nav">
+				<ul class="nav navbar-nav" ng-cloak="true">
 					<li ng-class="main.tabClass(tab)" ng-repeat="tab in main.tabs">
 						<a href="{{tab.link}}" ng-click="main.setSelectedTab(tab)">{{tab.label}}</a>
 					</li>
@@ -49,6 +49,7 @@
 	<script src="/js/services/HackerService.js"></script>
 	<script src="/js/services/AuthenticationService.js"></script>
 	<script src="/js/services/AlertService.js"></script>
+	<script src="/js/services/RouterStateService.js"></script>
 	<script src="/js/appRoutes.js"></script>
 	
 </body>

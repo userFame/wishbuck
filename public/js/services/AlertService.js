@@ -4,15 +4,15 @@
     angular.module(APPNAME)
         .factory('$alertService', ServiceFactory);
 
-    ServiceFactory.$inject = ['toastr'];
+    ServiceFactory.$inject = ['baseService', 'toastr'];
 
-    function ServiceFactory(toastr) {
-        var svc = this;
-
-        // $.extend(svc, $baseService);
-
+    function ServiceFactory(
+        baseService
+        , toastr) {
+        
+        const svc = Object.create(baseService);
+        
         svc.toastr = toastr;
-        // svc.$systemEventService = $systemEventService;
 
         svc.success = _success;
         svc.info = _info;
