@@ -4,7 +4,7 @@ class BaseResponse {
 
     constructor() {
         this.transactionId = uuid.v1()
-        this.success = false
+        this.isSuccessful = false
         this.alert = {
             message: null,
             type: null

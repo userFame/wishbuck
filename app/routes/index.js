@@ -1,18 +1,18 @@
 const router = require('express').Router()
-const hackerRoutes = require('./hackers.routes')
-const userRoutes = require('./users.routes')
-const siteRoutes = require('./site.routes')
+const hackersRoutes = require('./hackers.routes')
+const usersRoutes = require('./users.routes')
+const sitesRoutes = require('./sites.routes')
 
 // register routes ///////////////////////////
-router.use('/api/hackers', hackerRoutes)
-router.use('/api/users', userRoutes)
+router.use('/api/hackers', hackersRoutes)
+router.use('/api/users', usersRoutes)
 
 // Handle API 404
 router.use('/api/*', function (req, res, next) {
     res.sendStatus(404)
 })
 
-router.use(siteRoutes)
+router.use(sitesRoutes)
 
 
 // Handle 500

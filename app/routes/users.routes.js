@@ -1,9 +1,9 @@
 const router = require('express').Router()
-const userController = require('../controllers/user.controller')
+const usersController = require('../controllers/users.controller')
 
 module.exports = router
 
 // api routes ===========================================================
-router.post('/register', userController.register)
-router.post('/login', userController.login)
+router.post('/register', usersController.register)
+router.post('/login', usersController.login)
 

@@ -4,7 +4,7 @@ class ErrorResponse extends BaseResponse {
     
     constructor(err) {
         super()
-        this.success = false
+        this.isSuccessful = false
         this.errors = err
         this.alert.type = 'danger'
     }

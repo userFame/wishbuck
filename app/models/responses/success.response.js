@@ -4,7 +4,7 @@ class SuccessResponse extends BaseResponse {
     
     constructor() {
         super()
-        this.success = true
+        this.isSuccessful = true
         this.alert.type = 'success'
     }
 
