@@ -1,5 +1,3 @@
-const hacker = require('../models/hacker')
-
 module.exports = hackersService
 
 function hackersService(options) {

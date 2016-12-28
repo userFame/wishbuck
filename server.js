@@ -15,9 +15,11 @@ const path = require('path')
 // set our port
 const port = process.env.PORT || 8080
 
+// mpromise is depreciated, use native es6 Promise
+mongoose.Promise = global.Promise;
+
 // connect to mongoDB database 
-// (uncomment after you enter in your own credentials in config/db.js)
-mongoose.connect(process.env.MONGODB_URL);
+mongoose.connect(process.env.MONGODB_URL)
 
 require('./config/passport')(passport); // pass passport for configuration
 
