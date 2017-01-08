@@ -8,15 +8,14 @@ router.use('/api/hackers', hackersRoutes)
 router.use('/api/users', usersRoutes)
 
 // Handle API 404
-router.use('/api/*', function (req, res, next) {
+router.use('/api/*', function(req, res, next) {
     res.sendStatus(404)
 })
 
 router.use(sitesRoutes)
 
-
 // Handle 500
-router.use(function (err, req, res, next) {
+router.use(function(err, req, res, next) {
     // If the error object doesn't exists
     if (!err) {
         return next()

@@ -1,7 +1,6 @@
 module.exports = hackersService
 
 function hackersService(options) {
-
     let Hacker
 
     if (!options.modelService) {

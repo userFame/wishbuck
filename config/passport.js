@@ -1,26 +1,25 @@
-const LocalStrategy = require('passport-local').Strategy;
-const User = require('../app/models/user');
+const LocalStrategy = require('passport-local').Strategy
+const User = require('../app/models/user')
 
 // expose this function to our app using module.exports
 module.exports = passportConfig
 
 function passportConfig(passport) {
-
     // =========================================================================
     // passport session setup ==================================================
-    // =========================================================================   
+    // =========================================================================
     // required for persistent login sessions
     // passport needs ability to serialize and unserialize users out of session
 
-    passport.serializeUser(function (user, done) {
-        done(null, user.id);
-    });
+    passport.serializeUser(function(user, done) {
+        done(null, user.id)
+    })
 
-    passport.deserializeUser(function (id, done) {
-        User.findById(id, function (err, user) {
-            done(err, user);
-        });
-    });
+    passport.deserializeUser(function(id, done) {
+        User.findById(id, function(err, user) {
+            done(err, user)
+        })
+    })
 
     // =========================================================================
     // LOCAL SIGNUP ============================================================
@@ -39,27 +38,28 @@ function passportConfig(passport) {
         passReqToCallback: true // allows us to pass back the entire request to the callback
     }, localLogin))
 
-
     function localSignup(req, email, password, done) {
-
         // asynchronous
         // User.findOne wont fire unless data is sent back
         process.nextTick(() => {
             // find a user whose email is the same as the forms email
             // we are checking to see if the user trying to login already exists
-            User.findOne({ 'local.email': email }, findOneComplete);
+            User.findOne({
+                'local.email': email
+            }, findOneComplete)
 
             function findOneComplete(err, user) {
                 // if there are any errors, return the error
-                if (err)
+                if (err) {
                     return done(err)
+                }
 
                 // check to see if theres already a user with that email
                 if (user) {
                     const errorsFound = null
-                    const userCreated = false                   
+                    const userCreated = false
                     return done(errorsFound, userCreated, {
-                        reason: "User already exists with that email."
+                        reason: 'User already exists with that email.'
                     })
                 } else {
                     // if there is no user with that email, create the user
@@ -70,38 +70,47 @@ function passportConfig(passport) {
                     newUser.local.password = newUser.generateHash(password)
 
                     // save the user
-                    newUser.save(function (err) {
-                        if (err)
-                            throw err;
+                    newUser.save(function(err) {
+                        if (err) {
+                            throw err
+                        }
                         return done(null, newUser)
-                    });
+                    })
                 }
             }
-        });
-
+        })
     }
 
-    function localLogin(req, email, password, done) { // callback with email and password from our form
-
+    // callback with email and password from our form
+    function localLogin(req, email, password, done) {
         // find a user whose email is the same as the forms email
         // we are checking to see if the user trying to login already exists
-        User.findOne({ 'local.email': email }, findOneComplete)
+        User.findOne({
+            'local.email': email
+        }, findOneComplete)
+
         function findOneComplete(err, user) {
             // if there are any errors, return the error before anything else
-            if (err)
+            if (err) {
                 return done(err)
+            }
 
             // if no user is found, return the message
-            if (!user)
-                return done(null, false, { reason: "User not found." })
+            if (!user) {
+                return done(null, false, {
+                    reason: 'User not found.'
+                })
+            }
 
             // if the user is found but the password is wrong
-            if (!user.validPassword(password))
-                return done(null, false, { reason: 'Wrong password.' })
+            if (!user.validPassword(password)) {
+                return done(null, false, {
+                    reason: 'Wrong password.'
+                })
+            }
 
             // all is well, return successful user
             return done(null, user)
         }
     }
-
-};
+}

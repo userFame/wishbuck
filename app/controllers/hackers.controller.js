@@ -9,13 +9,12 @@ const hackersService = require('../services/hackers.service')({
 module.exports = hackersController
 
 function hackersController() {
-
     return {
-        getAll: getAll,
-        getOneById: getOneById,
-        insert: insert,
-        updateById: updateById,
-        removeById: removeById
+        getAll,
+        getOneById,
+        insert,
+        updateById,
+        removeById
     }
 
     function getAll(req, res) {

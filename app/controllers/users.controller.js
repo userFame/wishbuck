@@ -2,8 +2,8 @@ const passport = require('passport')
 const responses = require('../models/responses')
 
 module.exports = {
-    register: register,
-    login: login
+    register,
+    login
 }
 
 function register(req, res, next) {
@@ -11,8 +11,7 @@ function register(req, res, next) {
     passport.authenticate('local-signup', registerDone)(req, res, next)
 
     function registerDone(err, user, info) {
-        if (err)
-            return next(err); // will generate a 500 error
+        if (err) return next(err)
 
         // Generate a JSON response reflecting authentication status
         if (!user) {
@@ -29,8 +28,7 @@ function register(req, res, next) {
         // Source: http://passportjs.org/docs
         // ***********************************************************************
         req.login(user, loginErr => {
-            if (loginErr)
-                return next(loginErr)
+            if (loginErr) return next(loginErr)
 
             const responseModel = new responses.SuccessResponse()
             responseModel.alert.message = 'Registration succeeded'
@@ -43,8 +41,7 @@ function login(req, res, next) {
     passport.authenticate('local-login', loginDone)(req, res, next)
 
     function loginDone(err, user, info) {
-        if (err)
-            return next(err); // will generate a 500 error
+        if (err) return next(err)
 
         // Generate a JSON response reflecting authentication status
         if (!user) {
@@ -62,8 +59,7 @@ function login(req, res, next) {
         // Source: http://passportjs.org/docs
         // ***********************************************************************
         req.login(user, loginErr => {
-            if (loginErr)
-                return next(loginErr)
+            if (loginErr) return next(loginErr)
 
             const responseModel = new responses.SuccessResponse()
             responseModel.alert.message = 'Authentication succeeded'
@@ -71,5 +67,3 @@ function login(req, res, next) {
         })
     }
 }
-
-

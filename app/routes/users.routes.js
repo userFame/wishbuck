@@ -6,4 +6,3 @@ module.exports = router
 // api routes ===========================================================
 router.post('/register', usersController.register)
 router.post('/login', usersController.login)
-
