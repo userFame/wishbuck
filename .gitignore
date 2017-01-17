@@ -48,3 +48,6 @@ client/libs
 
 # Misc
 typings/
+
+# build folders
+client/**/build/**
