@@ -10,11 +10,24 @@ module.exports = hackersController
 
 function hackersController() {
     return {
+        ping,
         getAll,
         getOneById,
         insert,
         updateById,
         removeById
+    }
+
+    function ping(req, res) {
+        hackersService.ping()
+        .then((data) => {
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = data
+            res.json(responseModel)
+        })
+        .catch((err) => {
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
     }
 
     function getAll(req, res) {

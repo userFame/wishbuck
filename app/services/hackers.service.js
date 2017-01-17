@@ -10,11 +10,18 @@ function hackersService(options) {
     Hacker = options.modelService
 
     return {
-        getAll: getAll,
-        getOne: getOne,
-        insert: insert,
-        updateOne: updateOne,
-        removeOne: removeOne
+        ping,
+        getAll,
+        getOne,
+        insert,
+        updateOne,
+        removeOne
+    }
+
+    function ping() {
+        return new Promise(function(resolve, reject) {
+            resolve('pong')
+        })
     }
 
     function getAll() {

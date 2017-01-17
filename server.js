@@ -20,6 +20,14 @@ mongoose.Promise = global.Promise
 // connect to mongoDB database
 mongoose.connect(process.env.MONGODB_URL)
 
+// If the Node process ends, close the Mongoose connection
+process.on('SIGINT', function() {
+    mongoose.connection.close(function() {
+        console.log('Mongoose default connection disconnected through app termination')
+        process.exit(0)
+    })
+})
+
 require('./config/passport')(passport) // pass passport for configuration
 
 // get all data/stuff of the body (POST) parameters
@@ -50,16 +58,41 @@ app.use(passport.initialize())
 app.use(passport.session())
 
 // set the static files location /public/img will be /img for users
-app.use('/js', express.static(path.join(__dirname, 'public/js'), {
+
+// admin
+app.use('/admin/js', express.static(path.join(__dirname, 'client/admin/assets/js'), {
     fallthrough: false
 }))
-app.use('/css', express.static(path.join(__dirname, 'public/css'), {
+app.use('/admin/css', express.static(path.join(__dirname, 'client/admin/assets/css'), {
     fallthrough: false
 }))
-app.use('/libs', express.static(path.join(__dirname, 'public/libs'), {
+app.use('/admin/img', express.static(path.join(__dirname, 'client/admin/assets/img'), {
     fallthrough: false
 }))
-app.use('/views', express.static(path.join(__dirname, 'public/views'), {
+app.use('/admin/fonts', express.static(path.join(__dirname, 'client/admin/assets/fonts'), {
+    fallthrough: false
+}))
+
+// shared
+app.use('/libs', express.static(path.join(__dirname, 'client/libs'), {
+    fallthrough: false
+}))
+
+// public assets
+app.use('/assets', express.static(path.join(__dirname, 'client/public/assets'), {
+    fallthrough: false
+}))
+app.use('/images', express.static(path.join(__dirname, 'client/public/images'), {
+    fallthrough: false
+}))
+app.use('/build', express.static(path.join(__dirname, 'client/admin/build'), {
+    fallthrough: false
+}))
+
+app.use('/static/api', express.static(path.join(__dirname, 'client/admin/api'), {
+    fallthrough: false
+}))
+app.use('/app', express.static(path.join(__dirname, 'client/admin/modules'), {
     fallthrough: false
 }))
 

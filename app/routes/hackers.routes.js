@@ -4,6 +4,7 @@ const hackersController = require('../controllers/hackers.controller')()
 module.exports = router
 
 // api routes ===========================================================
+router.get('/ping', hackersController.ping)
 router.get('/', hackersController.getAll)
 router.get('/:id', hackersController.getOneById)
 router.post('/', hackersController.insert)
