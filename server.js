@@ -7,6 +7,7 @@ const methodOverride = require('method-override')
 const mongoose = require('mongoose')
 const passport = require('passport')
 const session = require('express-session')
+const expressValidator = require('express-validator')
 const path = require('path')
 
 // configuration ===========================================
@@ -33,7 +34,7 @@ require('./config/passport')(passport) // pass passport for configuration
 // get all data/stuff of the body (POST) parameters
 // parse application/json
 app.use(bodyParser.json())
-
+app.use(expressValidator())
 // parse application/vnd.api+json as json
 app.use(bodyParser.json({
     type: 'application/vnd.api+json'
