@@ -88,6 +88,7 @@ var knownOptions = {
 }
 
 var options = minimist(process.argv.slice(2), knownOptions)
+// This task is specifically setup for deploying to AZURE.
 gulp.task('prod', ['vendor', 'js'], buildProdPackage)
 
 function buildProdPackage() {
