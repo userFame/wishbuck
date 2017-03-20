@@ -51,10 +51,13 @@ Bower, like NPM, is meant as a dependancy manager.  This app uses Bower to manag
 Gulp is a build/task manager that allows for easy automation. This app uses it to build client side js files. Gulp requires to you have gulp install both globally and locally.  Two files play key roles in Gulp's build process, the /gulpfile.js and /public/app.scripts.json.  Inside of gulpfile.js we can create tasks we can from from the gulp command.  Be default typing gulp into you command line (when in the app directory) will run the default task, which is dev. The dev task runs the following tasks and include the built files into the /public/build directory:
 
 * Vendor
-..This task takes your app.scripts.json file and proceeds to build one js file including all vendors listed.  You can break your vendors into two or even three sections if you like. Current this app only has vendor and vendor.ui.  The paths key in the app.scripts.json file point to the physical location of each vendor js main file. This is what Gulp uses to concat all the files together. Whenever you bower install a package, your next step should be to include it in your ap.scripts.json file so that Gulp will build this into your vendor file. Your vendor file is then the only file you need to include in your index.html when referencing third party libraries.
+
+    This task takes your app.scripts.json file and proceeds to build one js file including all vendors listed.  You can break your vendors into two or even three sections if you like. Current this app only has vendor and vendor.ui.  The paths key in the app.scripts.json file point to the physical location of each vendor js main file. This is what Gulp uses to concat all the files together. Whenever you bower install a package, your next step should be to include it in your ap.scripts.json file so that Gulp will build this into your vendor file. Your vendor file is then the only file you need to include in your index.html when referencing third party libraries.
 
 * JS
-.. This task looks at all the paths listed in the "sources" object within gulpfile.js. The sources object will contain a list of all the angular files that need to be joined together into one file.  The file that is created from all of these angular files will be called app.js. Since all your angular files will be wrapped in an iffe, there is no need for concern of global variable conflicts.
+
+   This task looks at all the paths listed in the "sources" object within gulpfile.js. The sources object will contain a list of all the angular files that need to be joined together into one file.  The file that is created from all of these angular files will be called app.js. Since all your angular files will be wrapped in an iffe, there is no need for concern of global variable conflicts.
 
 * Watch
-.. This task simply just watches for changes in the sources object and will rerun the js task.
+
+   This task simply just watches for changes in the sources object and will rerun the js task.
