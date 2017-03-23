@@ -34,7 +34,7 @@ var source = {
 var destinations = {
     js: 'public/build'
 }
-
+// concats angular files
 gulp.task('js', function() {
     return es.merge(gulp.src(source.js.src))
         .pipe(babel({
@@ -50,6 +50,7 @@ gulp.task('watch', function() {
     gulp.watch(source.js.src, ['js'])
 })
 
+// builds vendor files listed in app.scripts.json
 gulp.task('vendor', buildVendor)
 
 function buildVendor() {
