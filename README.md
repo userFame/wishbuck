@@ -48,7 +48,7 @@ Since this is app is built to be a SPA, there is a need to have a system of buil
 Bower, like NPM, is meant as a dependancy manager.  This app uses Bower to manage only client side dependencies, i.e. angular, bootstrap, jQuery.  The bower.json is synonymous  with package.json and is used to list all dependencies. The .bowerrc file is a bower configuration file that tell bower to install dependencies inside of public/libs (by default bower install into a directory call bower_components).
 
 ### Gulp
-Gulp is a build/task manager that allows for easy automation. This app uses it to build client side js files. Gulp requires to you have gulp install both globally and locally.  Two files play key roles in Gulp's build process, the /gulpfile.js and /public/app.scripts.json.  Inside of gulpfile.js we can create tasks we can from from the gulp command.  Be default typing gulp into you command line (when in the app directory) will run the default task, which is dev. The dev task runs the following tasks and include the built files into the /public/build directory:
+Gulp is a build/task manager that allows for easy automation. This app uses it to build client side js files. Gulp requires to you have gulp install both globally (npm install gulp -g) and locally (npm install gulp --save-dev).  Two files play key roles in Gulp's build process, the /gulpfile.js and /public/app.scripts.json.  Inside of gulpfile.js we can create tasks we can from from the gulp command.  Be default typing gulp into you command line (when in the app directory) will run the default task, which is dev. The dev task runs the following tasks and include the built files into the /public/build directory:
 
 * Vendor
 
