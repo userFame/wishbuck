@@ -2,6 +2,7 @@
   "name": "node-angular-starter",
   "main": "server.js",
   "version": "2.0.0",
+  "cacheDirectories": ["public/libs"],
   "dependencies": {
     "bcrypt-nodejs": "0.0.3",
     "body-parser": "~1.4.2",
