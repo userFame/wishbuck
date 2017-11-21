@@ -1,90 +1,79 @@
-const responses = require('../models/responses')
-const path = require('path')
-const apiPrefix = '/api/hackers'
-const hackerModel = require('../models/hacker')
-const hackersService = require('../services/hackers.service')({
-    modelService: hackerModel
-})
+const responses = require('../models/responses');
+const hackersService = require('../services/hackers.service')
+const apiPrefix = '/api/hackers';
 
-module.exports = hackersController
-
-function hackersController() {
-    return {
-        getAll,
-        getOneById,
-        insert,
-        updateById,
-        removeById
-    }
-
-    function getAll(req, res) {
-        hackersService.getAll()
-            .then((hackers) => {
-                const responseModel = new responses.ItemsResponse()
-                responseModel.items = hackers
-                res.json(responseModel)
-            }).catch((err) => {
-                res.status(500).send(new responses.ErrorResponse(err))
-            })
-    }
-
-    function getOneById(req, res) {
-        let queryCondition = {
-            _id: req.params.id
-        }
-
-        hackersService.getOne(queryCondition)
-            .then((hacker) => {
-                const responseModel = new responses.ItemResponse()
-                responseModel.item = hacker
-                res.json(responseModel)
-            })
-            .catch((err) => {
-                return res.status(500).send(new responses.ErrorResponse(err))
-            })
-    }
-
-    function insert(req, res) {
-        hackersService.insert(req.body)
-            .then((hacker) => {
-                const responseModel = new responses.ItemResponse()
-                responseModel.item = hacker
-                res.status(201)
-                    .location(path.join(apiPrefix, hacker._id.toString()))
-                    .json(responseModel)
-            })
-            .catch((err) => {
-                return res.status(500).send(new responses.ErrorResponse(err))
-            })
-    }
-
-    function updateById(req, res) {
-        let queryCondition = {
-            _id: req.params.id
-        }
-        hackersService.updateOne(queryCondition, req.body)
-            .then((hacker) => {
-                const responseModel = new responses.ItemResponse()
-                res.status(204)
-                    .json(responseModel)
-            })
-            .catch((err) => {
-                return res.status(500).send(new responses.ErrorResponse(err.stack))
-            })
-    }
-
-    function removeById(req, res) {
-        let queryCondition = {
-            _id: req.params.id
-        }
-        hackersService.removeOne(queryCondition)
-            .then((hacker) => {
-                const responseModel = new responses.ItemResponse()
-                responseModel.item = hacker
-                res.json(responseModel)
-            })
-            .catch((err) => {
-                return res.status(500).send(new responses.ErrorResponse(err))
-            })
-    }
+module.exports = {
+    readAll: readAll,
+    readById: readById,
+    create: create,
+    update: update,
+    delete: _delete
 }
+
+function readAll(req, res) {
+    hackersService.readAll()
+        .then(hackers => {
+            const responseModel = new responses.ItemsResponse()
+            responseModel.items = hackers
+            res.json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        });
+}
+
+function readById(req, res) {
+    hackersService.readById(req.params.id)
+        .then(hacker => {
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = hacker
+            res.json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
+}
+
+function create(req, res) {
+    hackersService.create(req.model)
+        .then(id => {
+            const responseModel = new responses.ItemResponse()
+            responseModel.item = id
+            res.status(201)
+                .location(`${apiPrefix}/${id}`)
+                .json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
+}
+
+function update(req, res) {
+    hackersService
+        .update(req.params.id, req.model)
+        .then(hacker => {
+            const responseModel = new responses.SuccessResponse()
+            res.status(200).json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            res.status(500).send(new responses.ErrorResponse(err))
+        })
+}
+
+function _delete(req, res) {
+    hackersService
+        .delete(req.params.id)
+        .then(() => {
+            const responseModel = new responses.SuccessResponse()
+            res.status(200).json(responseModel)
+        })
+        .catch(err => {
+            console.log(err)
+            return res.status(500).send(new responses.ErrorResponse(err))
+        })
+}
+

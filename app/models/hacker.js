@@ -1,13 +1,10 @@
-const mongoose = require('mongoose')
-const Schema = mongoose.Schema
+const Joi = require('joi')
+Joi.objectId = require('joi-objectid')(Joi)
 
-const hackerSchema = new Schema({
-    name: {
-        type: String,
-        required: true
-    }
-})
+const schema = {
+    name: Joi.string().required(),
+    _id: Joi.objectId(),
+    userId: Joi.objectId()
+}
 
-// define our hacker model
-// module.exports allows us to pass this to other files when it is called
-module.exports = mongoose.model('Hacker', hackerSchema)
+module.exports = Joi.object().keys(schema)
