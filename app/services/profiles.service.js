@@ -8,7 +8,7 @@ module.exports = {
     readById: readById,
     create: _create,
     update: _update,
-    delete: _delete
+    deactivate: _deactivate
 }
 
 function _readAll() {
@@ -40,8 +40,8 @@ function _update(id, doc) {
         .then(result => result.insertedIds[0].toString())
 }
 
-function _delete(id) {
-    return conn.db().collection('proifles').deactivate(model)
+function _deactivate(id) {
+    return conn.db().collection('profiles').updateOne({_id: ObjectId(id)}, {$currentDate:{'dateModified': true, 'dateDeactivated': true} })
         .then(result => Promise.resolve())
 }
 

@@ -66,7 +66,7 @@ function update(req, res) {
 
 function _delete(req, res) {
     hackersService
-        .delete(req.params.id)
+        .delete(id)
         .then(() => {
             const responseModel = new responses.SuccessResponse()
             res.status(200).json(responseModel)
